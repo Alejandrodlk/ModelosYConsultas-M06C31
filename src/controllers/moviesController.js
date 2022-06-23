@@ -1,3 +1,4 @@
+const {Op} = require('sequelize') // desestructuro los operadores de sequelize "Op"
 const db = require('../database/models') // no es necesario agregar el archivo index.js ya que por defecto si se llama index es el que lee primero
 
 module.exports = {
@@ -18,5 +19,43 @@ module.exports = {
                 })
             })
             .catch(error => console.log(error))
+    },
+    new : (req,res) => {
+        db.Movie.findAll({
+            order : [
+                ['release_date' , 'DESC']
+            ],
+            limit : 5
+        })
+        .then(movies => res.render('newestMovies' , {
+            movies
+        }))
+        .catch(error => console.log(error))
+    },
+    recommended : (req,res) => {
+        
+        db.Movie.findAll({
+            where : {
+                [Op.and] :[
+                    {
+                        rating : {
+                            [Op.gte] : 9 //gte: mayor o igual
+                        }
+                    },
+                    {
+                        awards : {
+                            [Op.gt] : 2 //gt: mayor
+                        }
+                    },
+                ],
+            },
+            order : [
+                ['rating' , 'DESC'],['awards','DESC']
+            ]
+        })
+             .then(movies => res.render('recommendedMovies' , {
+                movies
+             }))
+             .catch(error => console.log(error))             
     }
 }

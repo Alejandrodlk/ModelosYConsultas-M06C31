@@ -30,6 +30,8 @@ module.exports = (sequelize, dataTypes) => {
 
     const config = {
         tableName : 'genres',
+        underscored : true // es para el "_" de la tabla de base de datos, en el "model" se escribe como camelcase: SELECT `id`, `title`, `rating`, `awards`, `release_date`, `length`, `genre_id`, `created_at` AS `createdAt`, `updated_at` AS `updatedAt` FROM `movies` AS `Movie
+
     }
 
 
