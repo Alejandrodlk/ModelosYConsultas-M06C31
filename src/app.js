@@ -6,6 +6,7 @@ const indexRouter = require('./routes/index');
 
 const moviesRoutes = require('./routes/moviesRoutes');
 const genresRoutes = require('./routes/genresRoutes');
+const actorsRoutes = require('./routes/actorsRoutes')
 const app = express();
 
 // view engine setup
@@ -17,5 +18,7 @@ app.use(express.static(path.resolve(__dirname, '../public')));
 app.use('/', indexRouter);
 app.use(moviesRoutes);
 app.use(genresRoutes);
+app.use(actorsRoutes)
+
 
 app.listen(process.env.PORT, () => console.log(`Servidor corriendo el en ${process.env.PORT}`));
